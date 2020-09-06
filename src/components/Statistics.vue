@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <div>번호별 당첨 통계</div>
+  <div id="statistics">
+    <div># 번호별 당첨 통계</div>
+    <div>-----------------</div>
     <div v-for="article in top6" :key="article.no">
       {{printDraws(article.no)}} {{printRateBar(article.rate)}} {{printRate(article.rate)}}
     </div>
+    <div>-----------------</div>
+    <div><button>전체 통계 보기</button></div>
   </div>
 </template>
 
@@ -44,3 +47,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#statistics {
+  margin: 10px;
+}
+</style>

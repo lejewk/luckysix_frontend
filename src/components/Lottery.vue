@@ -1,9 +1,10 @@
 <template>
   <div id="draws">
-    <div>제 {{round}} 회 당첨번호</div>
+    <div># 제 {{round}} 회</div>
     <div>-----------------</div>
     <div>{{printDraws}}</div>
     <div>-----------------</div>
+    <div><button>전체 회차 보기</button></div>
   </div>
 </template>
 
