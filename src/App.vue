@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <Lottery/>
+    <Draw/>
     <Statistics/>
   </div>
 </template>
 
 <script>
-import Lottery from './components/Lottery.vue'
+import Draw from './components/Draw.vue'
 import Statistics from './components/Statistics.vue'
 
 export default {
   name: 'App',
   components: {
-    Lottery,
+    Draw,
     Statistics
   }
 }
