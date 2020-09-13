@@ -1,10 +1,9 @@
 <template>
   <div id="draw">
-    <div># 제 {{latestDraw.round}} 회</div>
+    <div id="title"># 제 {{latestDraw.round}} 회</div>
     <div>-----------------</div>
     <div>{{printDrawNumbers}}</div>
     <div>-----------------</div>
-    <div><button>전체 회차 보기</button></div>
   </div>
 </template>
 
@@ -60,5 +59,9 @@ export default {
 <style scoped>
 #draw {
   margin:10px;
+}
+
+#title {
+  font-weight: bold;
 }
 </style>
