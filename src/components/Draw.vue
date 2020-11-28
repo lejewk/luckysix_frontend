@@ -16,13 +16,14 @@
             <v-chip
               v-for="draw in draws"
               :key="draw"
+              v-bind:color="getColorNameByNumber(draw)"
             >
               {{ draw }}
             </v-chip>
 
             <v-icon color="green" small>mdi-plus</v-icon>
             
-            <v-chip>{{ bonus }}</v-chip>
+            <v-chip v-bind:color="getColorNameByNumber(bonus)">{{ bonus }}</v-chip>
           </v-chip-group>
         </v-card-text>
       </v-card>
@@ -33,8 +34,10 @@
 
 <script>
 import axios from 'axios';
+import NumberColor from './mixins/NumberColor';
 
 export default {
+  mixins: [NumberColor],
   name: "Draw",
   data() {
     return {
