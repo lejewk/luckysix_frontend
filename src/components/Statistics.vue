@@ -1,12 +1,37 @@
 <template>
-  <div id="statistics">
-    <div id="title"># 번호별 당첨 통계</div>
-    <div>-----------------</div>
-    <div v-for="noDrawRate in noDrawRates" :key="noDrawRate.no">
-      {{printDraws(noDrawRate.no)}} {{printRateBar(noDrawRate.rate)}} {{printRate(noDrawRate.rate)}}
-    </div>
-    <div>-----------------</div>
-  </div>
+  <v-container>
+    <v-row no-gutters>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title>
+            <h2>
+              BEST 6 
+            </h2>
+          </v-card-title>
+
+          <v-divider class="mx-4"></v-divider>
+
+          <v-card-text>
+            <v-list dense>
+              <v-list-item-group>
+                <v-list-item v-for="noDrawRate in noDrawRates" :key="noDrawRate.no">
+                  <v-list-item-icon>
+                    <v-chip>{{ noDrawRate.no }}</v-chip>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <v-progress-linear v-bind:value="calcScoreByRate(noDrawRate.rate)"></v-progress-linear>
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-action>{{ rateToPercentFormat(noDrawRate.rate) }}%</v-list-item-action>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -30,26 +55,16 @@ export default {
     this.getTop6NoDrawRate();
   },
   methods: {
-    printDraws: function(no) {
-      return no.toString().padStart(2, '0');
+    rateToPercentFormat: function(rate) {
+      return (rate*100).toString().substr(0, 5);
     },
-    printRate: function(rate) {
-      return (rate*100).toString().substr(0, 5) + '%';
-    },
-    printRateBar: function(rate) {
+    calcScoreByRate: function(rate) {
       var topRate = this.noDrawRates[0].rate;
-      var maxBarSize = 10;
+      var maxBarSize = 100;
 
       var barCount = maxBarSize * rate / topRate;
 
-      var rateBar = "";
-      for(var i=0; i<Math.trunc(barCount); i++) {
-        rateBar += "■";
-      }
-
-      console.log(rateBar);
-
-      return rateBar;
+      return barCount;
     },
     getTop6NoDrawRate: function() {
       axios
@@ -61,13 +76,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#statistics {
-  margin: 10px;
-}
-
-#title {
-  font-weight: bold;
-}
-</style>

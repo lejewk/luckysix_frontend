@@ -1,10 +1,34 @@
 <template>
-  <div id="draw">
-    <div id="title"># 제 {{latestDraw.round}} 회</div>
-    <div>-----------------</div>
-    <div>{{printDrawNumbers}}</div>
-    <div>-----------------</div>
-  </div>
+  <v-container>
+    <v-row no-gutters>
+      <v-col cols="12">
+        <v-card>
+        <v-card-title>
+          <h2>
+            제 {{ round }} 회
+          </h2>
+        </v-card-title>
+
+        <v-divider class="mx-4"></v-divider>
+
+        <v-card-text>
+          <v-chip-group>
+            <v-chip
+              v-for="draw in draws"
+              :key="draw"
+            >
+              {{ draw }}
+            </v-chip>
+
+            <v-icon color="green" small>mdi-plus</v-icon>
+            
+            <v-chip>{{ bonus }}</v-chip>
+          </v-chip-group>
+        </v-card-text>
+      </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -14,15 +38,9 @@ export default {
   name: "Draw",
   data() {
     return {
-      latestDraw: {
-        round: 0,
-        no1: 0,
-        no2: 0,
-        no3: 0,
-        no4: 0,
-        no5: 0,
-        no6: 0
-      }
+      round: 0, 
+      draws: [],
+      bonus: 0
     }
   },
   created () {
@@ -33,35 +51,15 @@ export default {
       axios
         .get('/api/getLatestDraw')
         .then(response => {
-          this.latestDraw = response.data
-        })
-    }
-  },
-  computed: {
-    printDrawNumbers: function() {
-      var numbers = [
-        this.latestDraw.no1,
-        this.latestDraw.no2,
-        this.latestDraw.no3,
-        this.latestDraw.no4,
-        this.latestDraw.no5,
-        this.latestDraw.no6
-      ];
+          // console.log(response.data);
+          this.round = response.data.round;
+          this.bonus = response.data.bonus;
 
-      return numbers.map(function(it) {
-        return it.toString().padStart(2, '0');
-      }).join(" ");
+          for (var i=1; i<=6; i++) {
+            this.draws.push(response.data['no' + i]);
+          }
+        })
     }
   }
 }
 </script>
-
-<style scoped>
-#draw {
-  margin:10px;
-}
-
-#title {
-  font-weight: bold;
-}
-</style>
