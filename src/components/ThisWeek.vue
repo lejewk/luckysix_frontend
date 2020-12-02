@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title>
             <h2>
-              BEST 6 
+              This Week
             </h2>
           </v-card-title>
 
@@ -46,11 +46,11 @@ export default {
     return {
       noDrawRates: [
         {no: 1, count: 0, rate: 0},
-        {no: 2, count: 0, rate: 0},
-        {no: 3, count: 0, rate: 0},
-        {no: 4, count: 0, rate: 0},
-        {no: 5, count: 0, rate: 0},
-        {no: 6, count: 0, rate: 0}
+        {no: 17, count: 0, rate: 0},
+        {no: 26, count: 0, rate: 0},
+        {no: 32, count: 0, rate: 0},
+        {no: 40, count: 0, rate: 0},
+        {no: 42, count: 0, rate: 0}
       ]
     }
   },
@@ -75,9 +75,9 @@ export default {
 
       return barCount;
     },
-    getTop6NoDrawRate: function() {
+    getNoDrawRate: function() {
       axios
-        .get('/api/getTop6NoDrawRate')
+        .get('/api/getNoDrawRate')
         .then(response => {
           this.noDrawRates = response.data.noDrawRates;
         })
