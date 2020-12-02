@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title>
             <h2>
-              This Week
+              이번주 통계
             </h2>
           </v-card-title>
 
@@ -41,7 +41,7 @@ import NumberColor from './mixins/NumberColor';
 
 export default {
   mixins: [NumberColor],
-  name: 'Statistics',
+  name: 'ThisWeek',
   data() {
     return {
       noDrawRates: [

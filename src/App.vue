@@ -6,7 +6,7 @@
       dark
       dense
     >
-      <v-toolbar-title>로통</v-toolbar-title>
+      <v-toolbar-title>Today Lotto</v-toolbar-title>
     </v-app-bar>
     <v-main>
       <Draw/>

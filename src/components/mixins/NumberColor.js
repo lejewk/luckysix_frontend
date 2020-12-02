@@ -7,8 +7,10 @@ let NumberColor = {
         return 'orange';
       } else if (number < 31) {
         return 'green';
+      } else if (number < 41) {
+        return 'primary'
       } else {
-        return 'primary';
+        return 'secondary';
       }
     }
   }

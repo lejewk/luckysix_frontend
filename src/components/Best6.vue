@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title>
             <h2>
-              BEST 6
+              최고의 6
             </h2>
           </v-card-title>
 
@@ -14,17 +14,17 @@
           <v-card-text>
             <v-list dense>
               <v-list-item-group>
-                <v-list-item v-for="(noDrawRate, index) in noDrawRates" :key="noDrawRate.no">
+                <v-list-item v-for="(drawRate, index) in drawRates" :key="drawRate.no">
                   <v-list-item-icon>
-                    <v-chip v-bind:color="getColorNameByNumber(noDrawRate.no)">{{ noDrawRate.no }}</v-chip>
+                    <v-chip v-bind:color="getColorNameByNumber(drawRate.no)">{{ drawRate.no }}</v-chip>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <v-progress-linear v-bind:value="calcScoreByRate(noDrawRate.rate, index)"></v-progress-linear>
+                      <v-progress-linear v-bind:value="calcScoreByRate(drawRate.rate, index)"></v-progress-linear>
                     </v-list-item-title>
-                    <v-list-item-subtitle>{{ noDrawRate.count }} 번 당첨되었습니다.</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{ drawRate.count }} 번 당첨되었습니다.</v-list-item-subtitle>
                   </v-list-item-content>
-                  <v-list-item-action>{{ rateToPercentFormat(noDrawRate.rate) }}%</v-list-item-action>
+                  <v-list-item-action>{{ rateToPercentFormat(drawRate.rate) }}%</v-list-item-action>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -41,10 +41,10 @@ import NumberColor from './mixins/NumberColor';
 
 export default {
   mixins: [NumberColor],
-  name: 'Statistics',
+  name: 'Best6',
   data() {
     return {
-      noDrawRates: [
+      drawRates: [
         {no: 1, count: 0, rate: 0},
         {no: 17, count: 0, rate: 0},
         {no: 26, count: 0, rate: 0},
@@ -62,7 +62,7 @@ export default {
       return (rate*100).toString().substr(0, 5);
     },
     calcScoreByRate: function(rate, index) {
-      var topRate = this.noDrawRates[0].rate;
+      var topRate = this.drawRates[0].rate;
       var maxBarSize = 100;
 
       var barCount = maxBarSize * rate / topRate;
@@ -77,9 +77,9 @@ export default {
     },
     getTop6NoDrawRate: function() {
       axios
-        .get('/api/getTop6NoDrawRate')
+        .get('/api/top6DrawRate')
         .then(response => {
-          this.noDrawRates = response.data.noDrawRates;
+          this.drawRates = response.data.drawRates;
         })
     }
   }

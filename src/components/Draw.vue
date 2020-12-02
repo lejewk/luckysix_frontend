@@ -48,11 +48,12 @@ export default {
   },
   created () {
     this.getLatestDraw();
+    this.storeDraws();
   },
   methods: {
     getLatestDraw: function() {
       axios
-        .get('/api/getLatestDraw')
+        .get('/api/latestDraw')
         .then(response => {
           // console.log(response.data);
           this.round = response.data.round;
@@ -61,7 +62,10 @@ export default {
           for (var i=1; i<=6; i++) {
             this.draws.push(response.data['no' + i]);
           }
-        })
+        });
+    },
+    storeDraws: function() {
+      this.$store.setDraws(this.draws);
     }
   }
 }
