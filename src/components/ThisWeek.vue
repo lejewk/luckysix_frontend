@@ -54,8 +54,10 @@ export default {
       ]
     }
   },
-  created() {
-    this.getDrawRate(this.$store.state.draws);
+  computed: {
+    draws() {
+      return this.$store.state.draws;
+    }
   },
   methods: {
     rateToPercentFormat: function(rate) {
@@ -76,13 +78,19 @@ export default {
       return barCount;
     },
     getDrawRate: function(draws) {
-      console.log(draws);
+      console.log("getDrawRate", draws);
       var nos = draws.join(",");
       axios
         .get('/api/drawRate?nos=' + nos)
         .then(response => {
           this.drawRates = response.data.drawRates;
         })
+    }
+  },
+  watch: {
+    draws(val, oldVal) {
+      console.log("val watched", val);
+      console.log("old watched", oldVal);
     }
   }
 }

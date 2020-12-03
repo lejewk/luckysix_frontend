@@ -68,7 +68,7 @@ export default {
             draws.push(response.data['no' + i]);
           }
 
-          this.$store.commit('setDraws', draws);
+          this.$store.dispatch('setDraws', draws);
         });
     }
   }
