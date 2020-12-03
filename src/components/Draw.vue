@@ -42,13 +42,16 @@ export default {
   data() {
     return {
       round: 0, 
-      draws: [],
       bonus: 0
     }
   },
   created () {
     this.getLatestDraw();
-    this.storeDraws();
+  },
+  computed: {
+    draws() {
+      return this.$store.state.draws;
+    }
   },
   methods: {
     getLatestDraw: function() {
@@ -59,13 +62,14 @@ export default {
           this.round = response.data.round;
           this.bonus = response.data.bonus;
 
+          var draws = [];
+
           for (var i=1; i<=6; i++) {
-            this.draws.push(response.data['no' + i]);
+            draws.push(response.data['no' + i]);
           }
+
+          this.$store.commit('setDraws', draws);
         });
-    },
-    storeDraws: function() {
-      this.$store.setDraws(this.draws);
     }
   }
 }
