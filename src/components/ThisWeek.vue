@@ -14,7 +14,7 @@
           <v-card-text>
             <v-list dense>
               <v-list-item-group>
-                <v-list-item v-for="(drawRate, index) in drawRates" :key="drawRate.no">
+                <v-list-item v-for="(drawRate, index) in drawRates" :key="index">
                   <v-list-item-icon>
                     <v-chip v-bind:color="getColorNameByNumber(drawRate.no)">{{ drawRate.no }}</v-chip>
                   </v-list-item-icon>
@@ -46,11 +46,11 @@ export default {
     return {
       drawRates: [
         {no: 1, count: 0, rate: 0},
-        {no: 17, count: 0, rate: 0},
-        {no: 26, count: 0, rate: 0},
-        {no: 32, count: 0, rate: 0},
-        {no: 40, count: 0, rate: 0},
-        {no: 42, count: 0, rate: 0}
+        {no: 1, count: 0, rate: 0},
+        {no: 1, count: 0, rate: 0},
+        {no: 1, count: 0, rate: 0},
+        {no: 1, count: 0, rate: 0},
+        {no: 1, count: 0, rate: 0}
       ]
     }
   },
@@ -78,7 +78,6 @@ export default {
       return barCount;
     },
     getDrawRate: function(draws) {
-      console.log("getDrawRate", draws);
       var nos = draws.join(",");
       axios
         .get('/api/drawRate?nos=' + nos)
@@ -89,8 +88,9 @@ export default {
   },
   watch: {
     draws(val, oldVal) {
-      console.log("val watched", val);
-      console.log("old watched", oldVal);
+      if (val != oldVal) {
+        this.getDrawRate(val);
+      }
     }
   }
 }
